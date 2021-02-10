@@ -63,6 +63,47 @@
                             <v-col cols="3" v-if="selectedDet === 'Downgrade, gebunden non Twinni im Halteversuchfall'"></v-col>
 
 
+                            <v-col cols="3" v-if="selectedDet === 'Optionswechsel einer gebundenen Option auf andere Option in selber Wechselkategorie'">
+                                <v-form>
+                                    <v-text-field
+                                        label="irgend"
+                                        outlined/>
+                                </v-form>
+                            </v-col>
+
+                            <v-col cols="3"
+                                   v-if="selectedDet === 'Optionswechsel einer gebundenen Option auf andere Option in selber Wechselkategorie'">
+
+                                    <v-checkbox
+                                        label="Option X"
+                                        color="pink lighten-2"
+                                    ></v-checkbox>
+
+                            </v-col>
+
+                            <v-col cols="3"
+                                   v-if="selectedDet === 'Optionswechsel einer gebundenen Option auf andere Option in selber Wechselkategorie'">
+
+                                    <v-checkbox
+                                        label="Option Y"
+                                        color="pink lighten-2"
+                                    ></v-checkbox>
+                            </v-col>
+                            <v-col cols="12"
+                                   v-if="selectedDet === 'Optionswechsel einer gebundenen Option auf andere Option in selber Wechselkategorie'">
+
+                                <v-form>
+                                    <v-text-field
+                                        label="Stringvariable"
+                                        outlined/>
+                                </v-form>
+                            </v-col>
+
+
+
+
+
+
                                 <v-col cols="3">
                                     <v-form>
                                         <v-text-field

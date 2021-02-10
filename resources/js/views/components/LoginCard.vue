@@ -2,7 +2,9 @@
     <v-container id="loginContainer">
         <v-row>
             <v-col :cols="12">
+                <!--Login Card-->
                 <v-card
+                    v-show="state==='login'"
                     class="mx-auto"
                     width="400">
                     <v-card-title primary-title>
@@ -11,9 +13,13 @@
                     <v-card-text>
                         <v-form>
                             <v-text-field
-                                label="Username"
+                                v-model="form.name"
+                                color="orange"
+                                label="username"
                                 prepend-icon="mdi-account-circle"/>
                             <v-text-field
+                                v-model="form.password"
+                                color="orange"
                                 :type="showPassword ? 'text' : 'password'"
                                 label="Password"
                                 prepend-icon="mdi-lock"
@@ -23,12 +29,48 @@
                         </v-form>
                     </v-card-text>
                     <v-card-actions>
-                        <v-btn color="success">Register</v-btn>
+                        <v-btn color="pink lighten-2" text>Login</v-btn>
                         <v-spacer></v-spacer>
-                        <v-btn color="info">Login</v-btn>
+                        <v-btn color="pink lighten-2" @click="changeState" text>Register</v-btn>
                     </v-card-actions>
-                </v-card
-                >
+                </v-card>
+                <!--Register Card-->
+                <v-card
+                    v-show="state==='register'"
+                    class="mx-auto"
+                    width="400">
+                    <v-card-title primary-title>
+                        <h1>Register</h1>
+                    </v-card-title>
+                    <v-card-text>
+                        <v-form>
+                            <v-text-field
+                                v-model="form.name"
+                                color="orange"
+                                label="username"
+                                prepend-icon="mdi-account-circle"/>
+                            <v-text-field
+                                v-model="form.email"
+                                color="orange"
+                                label="email"
+                                prepend-icon="mdi-email"/>
+                            <v-text-field
+                                v-model="form.password"
+                                color="orange"
+                                :type="showPassword ? 'text' : 'password'"
+                                label="Password"
+                                prepend-icon="mdi-lock"
+                                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                                @click:append="showPassword = !showPassword"
+                            />
+                        </v-form>
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-btn color="pink lighten-2" @click="createUser" text>Create</v-btn>
+                        <v-spacer></v-spacer>
+                        <v-btn color="orange" @click="changeState" text>Cancel</v-btn>
+                    </v-card-actions>
+                </v-card>
             </v-col>
         </v-row>
 
@@ -36,14 +78,37 @@
 </template>
 
 <script>
+import UserService from "../../services/UserService";
+
+
 export default {
     name: "LoginCard",
     data: () => ({
+        //state changes cardset
         state: "login",
-        name: "",
-        password: "",
-        showPassword: false
+        showPassword: false,
+        form:{
+            name: "",
+            password: "",
+            email: "",
+        }
     }),
+    methods: {
+        changeState() {
+            //to switch between login and Register Card
+            if (this.state === "login") {
+                this.state = "register";
+            } else {
+                this.state = "login";
+            }
+        },
+        async createUser(){
+            //TODO first make validation here!
+            const data = UserService.createUser(this.form)
+
+        }
+
+    }
 }
 </script>
 

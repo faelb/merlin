@@ -10,16 +10,16 @@
                 <h2>Merlin</h2>
             </v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-btn icon @click="switchMenus">
+            <v-btn icon @click="INCREMENT">
                 <v-icon>mdi-dots-vertical</v-icon>
             </v-btn>
         </v-app-bar>
 
         <v-main>
-            <MenuTool></MenuTool>
-                <TestForm v-if="counter === 'Form'"></TestForm>
-                <LoginCard v-if="counter === 'Login'"></LoginCard>
-                <MenuCards v-if="counter === 'MenuCards'"></MenuCards>
+            <MenuTool v-if="$store.state.count === 2"></MenuTool>
+                <TestForm v-if="$store.state.count === 3"></TestForm>
+                <LoginCard v-if="$store.state.count === 0"></LoginCard>
+                <MenuCards v-if="$store.state.count === 1"></MenuCards>
 
         </v-main>
     </v-app>
@@ -27,10 +27,11 @@
 
 <script>
 import TestdataService from "../services/TestdataService";
+import {mapActions, mapMutations, mapState} from 'vuex';
+import MenuTool from "./components/MenuTool";
 import MenuCards from "./components/MenuCards";
 import TestForm from "./components/TestForm";
 import LoginCard from "./components/LoginCard";
-import MenuTool from "./components/MenuTool";
 
 export default {
     name: "App",
@@ -41,16 +42,25 @@ export default {
         LoginCard,
     },
     data: () => ({
-        counter: "Logn"
+        menus: ["Login","MenuCards","Menutool","Form"],
+        counter: 0
 }),
     methods:{
+        ...mapMutations([
+           'INCREMENT',
+        ]),
         switchMenus(){
-            if(this.counter==="Login"){
-                this.counter = "MenuCards"
+            this.counter++
+            if(this.counter===4){
+                this.counter=0
             }
             console.log(this.counter)
         }
+    },
+    computed: {
+
     }
+
 
 }
 </script>
