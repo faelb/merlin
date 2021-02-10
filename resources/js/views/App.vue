@@ -1,53 +1,57 @@
 <template>
-<v-app>
-    <v-content>
-    <v-container>
-        <v-row>
-            <v-col
-                cols = "12">
-                <v-card
-                    class="mx-auto"
-                    width="400">
-                    <v-card-title><h1>Form</h1></v-card-title>
-                    <v-card-text>
-                        <v-form>
-                            <v-text-field
-                                v-model="form.someAttribute"
-                                label="someAttribute"/>
-                            <v-text-field
-                                v-model="form.someInteger"
-                                label="someInteger"/>
+    <v-app>
+        <v-app-bar
+            app
+            dark
+            shrink-on-scroll
+            src='https://www.desktopbackground.org/download/o/2014/01/03/695388_magenta-backgrounds-free-vector-art-10551-free-downloads_1400x980_h.jpg'>
+            <v-app-bar-nav-icon></v-app-bar-nav-icon>
+            <v-toolbar-title>
+                <h2>Merlin</h2>
+            </v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-btn icon @click="switchMenus">
+                <v-icon>mdi-dots-vertical</v-icon>
+            </v-btn>
+        </v-app-bar>
 
-                        </v-form>
-                    </v-card-text>
-                    <v-card-actions>
-                        <v-btn color="success" @click="createEntry">Send</v-btn>
-                    </v-card-actions>
-                </v-card>
-            </v-col>
-        </v-row>
-    </v-container>
-    </v-content>
-</v-app>
+        <v-main>
+            <MenuTool></MenuTool>
+                <TestForm v-if="counter === 'Form'"></TestForm>
+                <LoginCard v-if="counter === 'Login'"></LoginCard>
+                <MenuCards v-if="counter === 'MenuCards'"></MenuCards>
+
+        </v-main>
+    </v-app>
 </template>
 
 <script>
 import TestdataService from "../services/TestdataService";
+import MenuCards from "./components/MenuCards";
+import TestForm from "./components/TestForm";
+import LoginCard from "./components/LoginCard";
+import MenuTool from "./components/MenuTool";
 
 export default {
     name: "App",
+    components: {
+        MenuTool,
+        MenuCards,
+        TestForm,
+        LoginCard,
+    },
     data: () => ({
-        form: {
-            someAttribute: "",
-            someInteger: ""
-        }
-    }),
+        counter: "Logn"
+}),
     methods:{
-        async createEntry(){
-            const data = TestdataService.createEntry(this.form)
-
+        switchMenus(){
+            if(this.counter==="Login"){
+                this.counter = "MenuCards"
+            }
+            console.log(this.counter)
         }
     }
+
 }
 </script>
 
