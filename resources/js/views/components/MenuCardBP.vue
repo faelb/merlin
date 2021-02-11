@@ -30,8 +30,9 @@
 
                 <v-card-actions>
                     <v-btn
-                        color="pink lighten-2"
+                        color="orange"
                         text
+                        elevation="24"
                     >
                         <v-icon>mdi-file-eye-outline</v-icon>
                         Confluence
