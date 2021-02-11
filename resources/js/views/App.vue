@@ -18,7 +18,7 @@
         <v-main>
             <MenuTool v-if="$store.state.count === 2"></MenuTool>
                 <TestForm v-if="$store.state.count === 3"></TestForm>
-                <LoginCard v-if="$store.state.count === 0"></LoginCard>
+                <LoginCard></LoginCard>
                 <MenuCards v-if="$store.state.count === 1"></MenuCards>
 
         </v-main>

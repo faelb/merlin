@@ -19,3 +19,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post("/createTestdata","App\Http\Controllers\TestdataController@createTestdata");
+
+// group for authentications /api/auth
+Route::group(['prefix'=>'auth'], function($router){
+    Route::post('register','App\Http\Controllers\AuthController@register');
+    Route::post('login','App\Http\Controllers\AuthController@login');
+    Route::post('logout','App\Http\Controllers\AuthController@logout');
+//someothers like renew of token and stuff see julian video
+});

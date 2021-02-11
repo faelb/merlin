@@ -55,18 +55,27 @@
                                 label="email"
                                 prepend-icon="mdi-email"/>
                             <v-text-field
+                                @input="showConfirmation = true"
                                 v-model="form.password"
                                 color="orange"
                                 :type="showPassword ? 'text' : 'password'"
-                                label="Password"
+                                label="password"
                                 prepend-icon="mdi-lock"
                                 :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                                 @click:append="showPassword = !showPassword"
                             />
+                            <v-text-field
+                                v-show="showConfirmation"
+                                v-model="form.password_confirmation"
+                                color="orange"
+                                :type="showPassword ? 'text' : 'password'"
+                                label="confirm password"
+                                prepend-icon="mdi-lock-alert"
+                            />
                         </v-form>
                     </v-card-text>
                     <v-card-actions>
-                        <v-btn color="pink lighten-2" @click="createUser" text>Create</v-btn>
+                        <v-btn color="pink lighten-2" @click="registerUser" text>Create</v-btn>
                         <v-spacer></v-spacer>
                         <v-btn color="orange" @click="changeState" text>Cancel</v-btn>
                     </v-card-actions>
@@ -78,7 +87,7 @@
 </template>
 
 <script>
-import UserService from "../../services/UserService";
+import AuthService from '../../services/AuthService'
 
 
 export default {
@@ -87,9 +96,11 @@ export default {
         //state changes cardset
         state: "login",
         showPassword: false,
+        showConfirmation: false,
         form:{
             name: "",
             password: "",
+            password_confirmation: "",//syntax is a trigger for laravel validation
             email: "",
         }
     }),
@@ -102,10 +113,10 @@ export default {
                 this.state = "login";
             }
         },
-        async createUser(){
-            //TODO first make validation here!
-            const data = UserService.createUser(this.form)
-
+        async registerUser(){
+            //TODO first make validation here! -all required, email is email, confirmed password is same and so on
+            const user = await AuthService.register(this.form)
+            alert("Hello " +user.name)
         }
 
     }

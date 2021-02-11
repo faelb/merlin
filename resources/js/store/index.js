@@ -1,21 +1,17 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import app from './module/app.store'
+import user from './module/user.store'
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
-    state: {
-        count: 0,
+    modules: {
+        app,
+        user,
     },
-    mutations: {
-        INCREMENT(state) {
-            state.count++;
-            if(state.count === 4){
-                state.count = 0;
-            }
-        },
-    },
-    actions: {}
+    plugins :[]//TODO add vuex persistence!
+
 });
 
 export default store;
