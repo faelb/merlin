@@ -74,8 +74,15 @@
                             />
                         </v-form>
                     </v-card-text>
+
+<!--                    <v-progress-circular
+                        v-show="waiting"
+                        indeterminate
+                        color="pink lighten-2"
+                    ></v-progress-circular>-->
+
                     <v-card-actions>
-                        <v-btn color="pink lighten-2" @click="registerUser" text>Create</v-btn>
+                        <v-btn v-show="$store.state.user.loggedIn === false" color="pink lighten-2" @click="registerUser" text>Create</v-btn>
                         <v-spacer></v-spacer>
                         <v-btn color="orange" @click="changeState" text>Cancel</v-btn>
                     </v-card-actions>
@@ -97,6 +104,7 @@ export default {
         state: "login",
         showPassword: false,
         showConfirmation: false,
+        waiting: false,
         form:{
             name: "",
             password: "",
@@ -116,7 +124,8 @@ export default {
         async registerUser(){
             //TODO first make validation here! -all required, email is email, confirmed password is same and so on
             const user = await AuthService.register(this.form)
-            alert("Hello " +user.name)
+            //this.waiting = false //damit das Loading aufhört
+            //alert("Hello " +user.name)
         }
 
     }
