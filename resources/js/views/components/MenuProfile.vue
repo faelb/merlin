@@ -1,5 +1,5 @@
 <template>
-
+<h1>MenuProfile</h1>
 </template>
 
 <script>

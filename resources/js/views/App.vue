@@ -6,27 +6,37 @@
             shrink-on-scroll
             src='https://www.desktopbackground.org/download/o/2014/01/03/695388_magenta-backgrounds-free-vector-art-10551-free-downloads_1400x980_h.jpg'>
             <v-btn
-            icon
-            v-show="$store.state.user.loggedIn === true"
-            @click="$store.commit('user/SET_LOGOUT')">
+                icon
+                v-show="$store.state.user.loggedIn === true"
+                @click="$store.commit('user/SET_LOGOUT')"
+                title="Logout">
                 <v-icon>mdi-logout</v-icon>
             </v-btn>
             <v-toolbar-title>
                 <h2 v-show="$store.state.user.loggedIn===false">Merlin</h2>
-                <h3 v-show="$store.state.user.loggedIn===true">Hello {{ username }}</h3>
+                <h3 v-show="$store.state.user.loggedIn===true">Hello {{ $store.state.user.user.name }}</h3>
             </v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-btn icon @click="INCREMENT">
+            <v-btn icon>
                 <v-icon>mdi-dots-vertical</v-icon>
             </v-btn>
         </v-app-bar>
 
         <v-main>
-            <MenuTool v-if="$store.state.count === 2"></MenuTool>
-            <TestForm v-if="$store.state.count === 3"></TestForm>
-            <LoginCard></LoginCard>
-            <MenuCards v-if="$store.state.count === 1"></MenuCards>
-
+            <v-scroll-x-transition mode="in" hide-on-leave="true">
+                <LoginCard v-if="$store.state.user.loggedIn === false"></LoginCard>
+                <!-- visible only for registered users-->
+                <MenuCards v-else-if="$store.state.user.loggedIn === true && $store.state.app.menuGuide ===''"></MenuCards>
+                <MenuTool
+                    v-else-if="$store.state.user.loggedIn === true && $store.state.app.menuGuide === 'MenuTool'"></MenuTool>
+                <MenuRequests
+                    v-else-if="$store.state.user.loggedIn === true && $store.state.app.menuGuide === 'MenuRequests'"></MenuRequests>
+                <MenuSearch
+                    v-else-if="$store.state.user.loggedIn === true && $store.state.app.menuGuide === 'MenuSearch'"></MenuSearch>
+                <MenuProfile
+                    v-else-if="$store.state.user.loggedIn === true && $store.state.app.menuGuide === 'MenuProfile'"></MenuProfile>
+                <!--<TestForm v-show="$store.state.count === 3"></TestForm>-->
+            </v-scroll-x-transition>
         </v-main>
     </v-app>
 </template>
@@ -38,32 +48,26 @@ import MenuTool from "./components/MenuTool";
 import MenuCards from "./components/MenuCards";
 import TestForm from "./components/TestForm";
 import LoginCard from "./components/LoginCard";
+import MenuSearch from "./components/MenuSearch";
+import MenuProfile from "./components/MenuProfile";
+import MenuRequests from "./components/MenuRequests";
 import store from "../store";
 
 export default {
     name: "App",
-    username: store.state.user.name,
 
     components: {
         MenuTool,
+        MenuSearch,
+        MenuProfile,
+        MenuRequests,
         MenuCards,
         TestForm,
         LoginCard,
-    },
-    data: () => ({
-        menus: ["Login", "MenuCards", "Menutool", "Form"],
-        counter: 0
-    }),
-    methods: {
 
-        switchMenus() {
-            this.counter++
-            if (this.counter === 4) {
-                this.counter = 0
-            }
-            console.log(this.counter)
-        }
     },
+    data: () => ({}),
+    methods: {},
     computed: {}
 
 

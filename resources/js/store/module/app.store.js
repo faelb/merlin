@@ -3,13 +3,19 @@ import Vuex from 'vuex';
 
 
 const state = {
-    //some app states like form inputs and stuff
+    menuGuide: "",
 }
 
 const actions = {}
 
 const mutations = {
-
+    SET_MENU_GUIDE(state,string){
+        state.menuGuide=string
+    },
+    RESET_APP_STATE(state){
+        state.menuGuide=""
+        //all the other states, if there are any
+    }
 
 }
 

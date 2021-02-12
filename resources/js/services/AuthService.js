@@ -11,6 +11,7 @@ class AuthServiceClass {
             const {data} = await api.post(baseUrl + 'register', credentials)
             console.log(data)
             store.commit('user/SET_AUTH_SUCCESS', data)
+            return data
         } catch (e) {
             console.log('error', e)
             store.commit('user/SET_AUTH_ERROR')
@@ -19,12 +20,13 @@ class AuthServiceClass {
         }
     }
 
-    async login() {
+    async login(credentials) {
         try {
             console.log('login', credentials)
             const {data} = await api.post(baseUrl + 'login', credentials)
             console.log(data)
             store.commit('user/SET_AUTH_SUCCESS', data)
+            return data
         } catch (e) {
             console.log('error', e)
             store.commit('user/SET_AUTH_ERROR')

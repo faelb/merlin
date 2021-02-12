@@ -12,11 +12,13 @@ const actions = {}
 const mutations = {
 
     SET_AUTH_SUCCESS(state, payload) {
+        //after registration or login if successful
         state.loggedIn = true
         state.error = false
         state.user = payload
     },
     SET_LOGOUT(state) {
+        //resets the whole user state
         state.loggedIn = false
         state.error = false
         state.user = {}

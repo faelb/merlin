@@ -1,5 +1,5 @@
 <template>
-
+    <h1>MenuRequest</h1>
 </template>
 
 <script>

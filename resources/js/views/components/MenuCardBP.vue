@@ -5,6 +5,7 @@
             v-slot="{ hover }"
         >
             <v-card
+                @click="$store.commit('app/SET_MENU_GUIDE',link)"
                 id="hover"
                 :elevation="hover ? 16 : 2"
                 :class="{ 'on-hover': hover }"
@@ -29,14 +30,17 @@
                 </v-card-text>
 
                 <v-card-actions>
+
                     <v-btn
                         color="orange"
                         text
-                        elevation="24"
+                        :elevation="btnhvr ? 8 : 2"
+
                     >
                         <v-icon>mdi-file-eye-outline</v-icon>
                         Confluence
                     </v-btn>
+
 
                 </v-card-actions>
             </v-card>
@@ -46,13 +50,17 @@
 
 <script>
 
+
 export default {
     name: "MenuCardBP",
-    props: ['CardTitle', 'CardSubTitle', 'CardText']
+    props: ['CardTitle', 'CardSubTitle', 'CardText', 'link'],
+    methods: {
+    }
 }
 </script>
 
 <style scoped>
+
 
 #hover {
     transition: opacity .4s ease-in-out;

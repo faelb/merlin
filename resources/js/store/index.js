@@ -10,6 +10,9 @@ const store = new Vuex.Store({
         app,
         user,
     },
+    mutations:{
+
+    },
     plugins :[]//TODO add vuex persistence!
 
 });
