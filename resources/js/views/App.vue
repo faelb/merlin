@@ -35,7 +35,6 @@
                     v-else-if="$store.state.user.loggedIn === true && $store.state.app.menuGuide === 'MenuSearch'"></MenuSearch>
                 <MenuProfile
                     v-else-if="$store.state.user.loggedIn === true && $store.state.app.menuGuide === 'MenuProfile'"></MenuProfile>
-                <!--<TestForm v-show="$store.state.count === 3"></TestForm>-->
             </v-scroll-x-transition>
         </v-main>
     </v-app>

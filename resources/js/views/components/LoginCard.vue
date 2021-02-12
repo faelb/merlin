@@ -136,6 +136,10 @@ export default {
             const user = await AuthService.register(this.form)
             this.waiting = false //damit das Loading aufhört
             //alert("Hello " +user.name)
+        },
+        async loginUser(){
+            const user = await AuthService.login(this.form)
+            this.waiting = false
         }
 
     }
