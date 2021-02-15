@@ -17,8 +17,9 @@ class AuthController extends Controller
             'password' => 'required|confirmed',
         ]);
         //TODO hash the password
-        //TODO return a Toke too
+
         $user = User::create($data);
+        //TODO make this user the actual user and give him a Token
 
         return response($user, 200);
     }
@@ -37,7 +38,7 @@ class AuthController extends Controller
         $accessToken = auth()->user()->createToken('authToken')->accessToken;
         $oauth = now()->addHours(6);
 
-        return response(['user'=>auth()->user(),'access_token'=>$accessToken,'expire'=>$oauth])
+        return response(['user'=>auth()->user(),'access_token'=>$accessToken,'expire'=>$oauth]);
 
     }
 
