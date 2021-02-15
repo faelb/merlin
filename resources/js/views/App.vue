@@ -17,7 +17,7 @@
                 <h3 v-show="$store.state.user.loggedIn===true">Hello {{ $store.state.user.user.user.name }}</h3>
             </v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-btn icon>
+            <v-btn icon @click="testAlert">
                 <v-icon>mdi-dots-vertical</v-icon>
             </v-btn>
         </v-app-bar>
@@ -26,7 +26,8 @@
             <v-scroll-x-transition v-bind:hide-on-leave='true'>
                 <LoginCard v-if="$store.state.user.loggedIn === false"></LoginCard>
                 <!-- visible only for registered users-->
-                <MenuCards v-else-if="$store.state.user.loggedIn === true && $store.state.app.menuGuide ===''"></MenuCards>
+                <MenuCards
+                    v-else-if="$store.state.user.loggedIn === true && $store.state.app.menuGuide ===''"></MenuCards>
                 <MenuTool
                     v-else-if="$store.state.user.loggedIn === true && $store.state.app.menuGuide === 'MenuTool'"></MenuTool>
                 <MenuRequests
@@ -66,7 +67,11 @@ export default {
 
     },
     data: () => ({}),
-    methods: {},
+    methods: {
+        testAlert(){
+            this.$swal("Hello Bromao!!!!");
+        }
+    },
     computed: {}
 
 

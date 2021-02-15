@@ -31,8 +31,9 @@ class Api {
 
         instance.interceptors.response.use((response) => {
                 if (response.status === 200) {
+                    //(this.$swal("200 bro");
                     return response
-                } else if (response.status === 401) {
+                }else if (response.status === 401) {
                     console.info('401 error')
                 } else if (response.status === 500) {
                     console.info('500 error')
@@ -49,6 +50,9 @@ class Api {
                 console.log('er',error)
                 if (error.response.status === 401) {
                     console.info('401 error')
+                } else if (error.response.status === 400) {
+                    console.info(error.response.data)
+                    //return Promise.reject(error.response.data)
                 } else if (error.response.status === 404) {
                     //console.warn('route ' + error.response.config.url + ' not available')
                 } else if (error.response.status === 403) {

@@ -34,7 +34,7 @@
                     <v-btn
                         color="orange"
                         text
-                        :elevation="btnhvr ? 8 : 2"
+                        elevation=2
 
                     >
                         <v-icon>mdi-file-eye-outline</v-icon>

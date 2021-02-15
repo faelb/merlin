@@ -21,12 +21,12 @@ const mutations = {
         //resets the whole user state
         state.loggedIn = false
         state.error = false
-        state.user = {}
+        state.user = {'user': {name:'null'}}
     },
     SET_AUTH_ERROR(state) {
         state.loggedIn = false
         state.error = true
-        state.user = {}
+        state.user = {'user': {name:'null'}}
 
     }
 }

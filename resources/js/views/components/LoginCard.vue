@@ -139,6 +139,7 @@ export default {
         },
         async loginUser(){
             const user = await AuthService.login(this.form)
+            this.$swal(user.message)
             this.waiting = false
         }
 

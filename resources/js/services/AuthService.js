@@ -28,9 +28,9 @@ class AuthServiceClass {
             store.commit('user/SET_AUTH_SUCCESS', data)
             return data
         } catch (e) {
-            console.log('error', e)
+            //console.log('error', e)
             store.commit('user/SET_AUTH_ERROR')
-            console.error(e)
+            //console.error(e)
             return e
         }
     }
