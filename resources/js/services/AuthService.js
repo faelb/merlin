@@ -16,7 +16,7 @@ class AuthServiceClass {
             console.log('error', e)
             store.commit('user/SET_AUTH_ERROR')
             console.error(e)
-            return e
+            return Promise.reject(e)
         }
     }
 
@@ -31,7 +31,7 @@ class AuthServiceClass {
             //console.log('error', e)
             store.commit('user/SET_AUTH_ERROR')
             //console.error(e)
-            return e
+            return Promise.reject(e)
         }
     }
 
