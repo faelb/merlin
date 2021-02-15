@@ -52,7 +52,7 @@ class Api {
                     console.info('401 error')
                 } else if (error.response.status === 400) {
                     console.info(error.response.data)
-                    //return Promise.reject(error.response.data)
+                    return Promise.reject(error.response.data)
                 } else if (error.response.status === 404) {
                     //console.warn('route ' + error.response.config.url + ' not available')
                 } else if (error.response.status === 403) {
