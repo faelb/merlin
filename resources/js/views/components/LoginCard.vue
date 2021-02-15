@@ -3,7 +3,7 @@
         <v-row>
             <v-col :cols="12">
                 <!--Login Card-->
-                <v-scroll-x-transition mode="in" hide-on-leave="true">
+                <v-scroll-x-transition v-bind:hide-on-leave='true'>
                 <v-card
                     v-show="state==='login'"
                     class="mx-auto"
@@ -30,14 +30,14 @@
                         </v-form>
                     </v-card-text>
                     <v-card-actions>
-                        <v-btn color="pink lighten-2" text>Login</v-btn>
+                        <v-btn v-show="waiting !== true" color="pink lighten-2" @click="loginUser(), waiting=true" text>Login</v-btn>
                         <v-spacer></v-spacer>
                         <v-btn color="pink lighten-2" @click="changeState" text>Register</v-btn>
                     </v-card-actions>
                 </v-card>
                 </v-scroll-x-transition>
                 <!--Register Card-->
-                <v-scroll-x-transition mode="in" hide-on-leave="true">
+                <v-scroll-x-transition v-bind:hide-on-leave='true'>
                 <v-card
                     v-show="state==='register'"
                     class="mx-auto"
@@ -85,7 +85,7 @@
                     ></v-progress-circular>
 
                     <v-card-actions>
-                        <v-btn v-show="$store.state.user.loggedIn === false" color="pink lighten-2" @click="registerUser(), waiting=true" text>Create</v-btn>
+                        <v-btn v-show="waiting !== true" color="pink lighten-2" @click="registerUser(), waiting=true" text>Create</v-btn>
                         <v-spacer></v-spacer>
                         <v-btn color="orange" @click="changeState" text>Cancel</v-btn>
                     </v-card-actions>

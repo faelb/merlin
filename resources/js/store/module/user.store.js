@@ -1,7 +1,7 @@
 
 
 const state = {
-    user: {},//the user as an Object - get it from login or register
+    user: {'user': {name:'null'}},//the user as an Object - get it from login or register, its null now because else there is a renderfailure at the beginning
     loggedIn: false,//will trigger the visibility of menucards
     error: false,//will trigger alert at login or register
     //missing expiretokentime if we want to show that somewhere

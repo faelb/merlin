@@ -14,7 +14,7 @@
             </v-btn>
             <v-toolbar-title>
                 <h2 v-show="$store.state.user.loggedIn===false">Merlin</h2>
-                <h3 v-show="$store.state.user.loggedIn===true">Hello {{ $store.state.user.user.name }}</h3>
+                <h3 v-show="$store.state.user.loggedIn===true">Hello {{ $store.state.user.user.user.name }}</h3>
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <v-btn icon>
@@ -23,7 +23,7 @@
         </v-app-bar>
 
         <v-main>
-            <v-scroll-x-transition mode="in" hide-on-leave="true">
+            <v-scroll-x-transition v-bind:hide-on-leave='true'>
                 <LoginCard v-if="$store.state.user.loggedIn === false"></LoginCard>
                 <!-- visible only for registered users-->
                 <MenuCards v-else-if="$store.state.user.loggedIn === true && $store.state.app.menuGuide ===''"></MenuCards>
