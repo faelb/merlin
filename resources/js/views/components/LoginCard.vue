@@ -12,12 +12,14 @@
                             <h1>Login</h1>
                         </v-card-title>
                         <v-card-text>
-                            <v-form>
+                            <v-form ref="loginform">
                                 <v-text-field
                                     v-model="form.name"
                                     color="orange"
                                     label="username"
-                                    prepend-icon="mdi-account-circle"/>
+                                    prepend-icon="mdi-account-circle"
+                                    :rules="[v => !!v || 'name is required']"
+                                />
                                 <v-text-field
                                     v-model="form.password"
                                     color="orange"
@@ -25,18 +27,19 @@
                                     label="Password"
                                     prepend-icon="mdi-lock"
                                     :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                                    :rules="[v => !!v || 'password is required']"
                                     @click:append="showPassword = !showPassword"
                                 />
                             </v-form>
                         </v-card-text>
-                        <v-progress-circular
-                            v-show="waiting"
-                            indeterminate
-                            color="pink lighten-2"
-                        ></v-progress-circular>
                         <v-card-actions>
-                            <v-btn v-show="waiting !== true" color="pink lighten-2" @click="loginUser()"
-                                   text>Login
+                            <v-btn
+                                color="pink lighten-2"
+                                text
+                                :loading="waiting"
+                                @click="loginUser()"
+                            >
+                                Login
                             </v-btn>
                             <v-spacer></v-spacer>
                             <v-btn color="pink lighten-2" @click="changeState" text>Register</v-btn>
@@ -84,16 +87,14 @@
                                 />
                             </v-form>
                         </v-card-text>
-
-                        <v-progress-circular
-                            v-show="waiting"
-                            indeterminate
-                            color="pink lighten-2"
-                        ></v-progress-circular>
-
                         <v-card-actions>
-                            <v-btn v-show="waiting !== true" color="pink lighten-2"
-                                   @click="registerUser()" text>Create
+                            <v-btn
+                                color="pink lighten-2"
+                                text
+                                :loading="waiting"
+                                @click="registerUser()"
+                            >
+                                Create
                             </v-btn>
                             <v-spacer></v-spacer>
                             <v-btn color="orange" @click="changeState" text>Cancel</v-btn>
@@ -143,32 +144,25 @@ export default {
         async registerUser() {
             this.waiting = true
             //TODO first make validation here! -all required, email is email, confirmed password is same and so on
-            try{
-            const user = await AuthService.register(this.form)}
-            catch (e) {
-                this.$swal(e['errors']['name'][0])
+            try {
+                const user = await AuthService.register(this.form)
+            } catch (e) {
+                this.$swal(e.message)
             }
             this.waiting = false //damit das Loading aufhört
             //alert("Hello " +user.name)
         },
         async loginUser() {
-            this.waiting = true // NOT WORKING
-            //form shouldnt be empty
-            if(this.form.name==="" || this.form.password===""){
-
-                this.$swal("I need a name and a password!")
-                this.waiting = false // NOT WORKING
-            }else{
-                //the actual request
+            if (this.$refs.loginform.validate()) {
                 try {
+                    this.waiting = true
                     const user = await AuthService.login(this.form)
                 } catch (e) {
-                    this.$swal(e.message)
+                    this.$swal(e)
+                } finally {
+                    this.waiting = false
                 }
-                this.waiting = false
             }
-
-
         }
 
     }
