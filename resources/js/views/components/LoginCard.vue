@@ -146,7 +146,7 @@ export default {
             try{
             const user = await AuthService.register(this.form)}
             catch (e) {
-                this.$swal(e.message)
+                this.$swal(e['errors']['name'][0])
             }
             this.waiting = false //damit das Loading aufhört
             //alert("Hello " +user.name)
