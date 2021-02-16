@@ -1,111 +1,125 @@
 <template>
-    <v-container id="loginContainer">
-        <v-row>
-            <v-col :cols="12">
-                <!--Login Card-->
-                <v-scroll-x-transition v-bind:hide-on-leave='true'>
-                    <v-card
-                        v-show="state==='login'"
-                        class="mx-auto"
-                        width="400">
-                        <v-card-title primary-title>
-                            <h1>Login</h1>
-                        </v-card-title>
-                        <v-card-text>
-                            <v-form ref="loginform">
-                                <v-text-field
-                                    v-model="form.name"
-                                    color="orange"
-                                    label="username"
-                                    prepend-icon="mdi-account-circle"
-                                    :rules="[v => !!v || 'name is required']"
-                                />
-                                <v-text-field
-                                    v-model="form.password"
-                                    color="orange"
-                                    :type="showPassword ? 'text' : 'password'"
-                                    label="Password"
-                                    prepend-icon="mdi-lock"
-                                    :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                                    :rules="[v => !!v || 'password is required']"
-                                    @click:append="showPassword = !showPassword"
-                                />
-                            </v-form>
-                        </v-card-text>
-                        <v-card-actions>
-                            <v-btn
-                                color="pink lighten-2"
-                                text
-                                :loading="waiting"
-                                @click="loginUser()"
-                            >
-                                Login
-                            </v-btn>
-                            <v-spacer></v-spacer>
-                            <v-btn color="pink lighten-2" @click="changeState" text>Register</v-btn>
-                        </v-card-actions>
-                    </v-card>
-                </v-scroll-x-transition>
-                <!--Register Card-->
-                <v-scroll-x-transition v-bind:hide-on-leave='true'>
-                    <v-card
-                        v-show="state==='register'"
-                        class="mx-auto"
-                        width="400">
-                        <v-card-title primary-title>
-                            <h1>Register</h1>
-                        </v-card-title>
-                        <v-card-text>
-                            <v-form>
-                                <v-text-field
-                                    v-model="form.name"
-                                    color="orange"
-                                    label="username"
-                                    prepend-icon="mdi-account-circle"/>
-                                <v-text-field
-                                    v-model="form.email"
-                                    color="orange"
-                                    label="email"
-                                    prepend-icon="mdi-email"/>
-                                <v-text-field
-                                    @input="showConfirmation = true"
-                                    v-model="form.password"
-                                    color="orange"
-                                    :type="showPassword ? 'text' : 'password'"
-                                    label="password"
-                                    prepend-icon="mdi-lock"
-                                    :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                                    @click:append="showPassword = !showPassword"
-                                />
-                                <v-text-field
-                                    v-show="showConfirmation"
-                                    v-model="form.password_confirmation"
-                                    color="orange"
-                                    :type="showPassword ? 'text' : 'password'"
-                                    label="confirm password"
-                                    prepend-icon="mdi-lock-alert"
-                                />
-                            </v-form>
-                        </v-card-text>
-                        <v-card-actions>
-                            <v-btn
-                                color="pink lighten-2"
-                                text
-                                :loading="waiting"
-                                @click="registerUser()"
-                            >
-                                Create
-                            </v-btn>
-                            <v-spacer></v-spacer>
-                            <v-btn color="orange" @click="changeState" text>Cancel</v-btn>
-                        </v-card-actions>
-                    </v-card>
-                </v-scroll-x-transition>
-
-            </v-col>
-        </v-row>
-
-    </v-container>
+  <v-container id="loginContainer">
+    <v-row>
+      <v-col :cols="12">
+        <!--Login Card-->
+        <v-scroll-x-transition :hide-on-leave="true">
+          <v-card
+            v-show="state==='login'"
+            class="mx-auto"
+            width="400"
+          >
+            <v-card-title primary-title>
+              <h1>Login</h1>
+            </v-card-title>
+            <v-card-text>
+              <v-form ref="loginform">
+                <v-text-field
+                  v-model="form.name"
+                  color="orange"
+                  label="username"
+                  prepend-icon="mdi-account-circle"
+                  :rules="[v => !!v || 'name is required']"
+                />
+                <v-text-field
+                  v-model="form.password"
+                  color="orange"
+                  :type="showPassword ? 'text' : 'password'"
+                  label="Password"
+                  prepend-icon="mdi-lock"
+                  :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                  :rules="[v => !!v || 'password is required']"
+                  @click:append="showPassword = !showPassword"
+                />
+              </v-form>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn
+                color="pink lighten-2"
+                text
+                :loading="waiting"
+                @click="loginUser()"
+              >
+                Login
+              </v-btn>
+              <v-spacer />
+              <v-btn
+                color="pink lighten-2"
+                text
+                @click="changeState"
+              >
+                Register
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-scroll-x-transition>
+        <!--Register Card-->
+        <v-scroll-x-transition :hide-on-leave="true">
+          <v-card
+            v-show="state==='register'"
+            class="mx-auto"
+            width="400"
+          >
+            <v-card-title primary-title>
+              <h1>Register</h1>
+            </v-card-title>
+            <v-card-text>
+              <v-form ref="registerform">
+                <v-text-field
+                  v-model="form.name"
+                  color="orange"
+                  label="username"
+                  prepend-icon="mdi-account-circle"
+                />
+                <v-text-field
+                  v-model="form.email"
+                  color="orange"
+                  label="email"
+                  prepend-icon="mdi-email"
+                />
+                <v-text-field
+                  v-model="form.password"
+                  color="orange"
+                  :type="showPassword ? 'text' : 'password'"
+                  label="password"
+                  prepend-icon="mdi-lock"
+                  :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                  @input="showConfirmation = true"
+                  @click:append="showPassword = !showPassword"
+                />
+                <v-text-field
+                  v-show="showConfirmation"
+                  v-model="form.password_confirmation"
+                  color="orange"
+                  :type="showPassword ? 'text' : 'password'"
+                  label="confirm password"
+                  prepend-icon="mdi-lock-alert"
+                />
+              </v-form>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn
+                color="pink lighten-2"
+                text
+                :loading="waiting"
+                @click="registerUser()"
+              >
+                Create
+              </v-btn>
+              <v-spacer />
+              <v-btn
+                color="orange"
+                text
+                @click="changeState"
+              >
+                Cancel
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-scroll-x-transition>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -142,15 +156,23 @@ export default {
             }
         },
         async registerUser() {
-            this.waiting = true
-            //TODO first make validation here! -all required, email is email, confirmed password is same and so on
-            try {
-                const user = await AuthService.register(this.form)
-            } catch (e) {
-                this.$swal(e.message)
+            if (this.$refs.registerform.validate()) {
+                //TODO first make validation here! -all required, email is email, confirmed password is same and so on
+                try {
+                    this.waiting = true
+                    const user = await AuthService.register(this.form)
+                } catch (e) {
+                    let out = e.errors.forEach((object) => {
+                        object[0]
+                    });
+                    console.log(out)
+                    //this.$swal(out)
+                } finally {
+                    this.waiting = false //damit das Loading aufhört
+                }
+
+
             }
-            this.waiting = false //damit das Loading aufhört
-            //alert("Hello " +user.name)
         },
         async loginUser() {
             if (this.$refs.loginform.validate()) {
