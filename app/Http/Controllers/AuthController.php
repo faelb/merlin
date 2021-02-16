@@ -15,7 +15,7 @@ class AuthController extends Controller
         $data = $request->validate([
             //unique:users gibt die tabelle an in der es unique sein soll
             'name' => 'required|unique:users',
-            'email' => 'required',
+            'email' => 'required|email',
             'password' => 'required|confirmed',
         ]);
         //TODO hash the password

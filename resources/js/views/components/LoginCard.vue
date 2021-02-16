@@ -29,8 +29,13 @@
                                 />
                             </v-form>
                         </v-card-text>
+                        <v-progress-circular
+                            v-show="waiting"
+                            indeterminate
+                            color="pink lighten-2"
+                        ></v-progress-circular>
                         <v-card-actions>
-                            <v-btn v-show="waiting !== true" color="pink lighten-2" @click="loginUser(), waiting=true"
+                            <v-btn v-show="waiting !== true" color="pink lighten-2" @click="loginUser()"
                                    text>Login
                             </v-btn>
                             <v-spacer></v-spacer>
@@ -88,7 +93,7 @@
 
                         <v-card-actions>
                             <v-btn v-show="waiting !== true" color="pink lighten-2"
-                                   @click="registerUser(), waiting=true" text>Create
+                                   @click="registerUser()" text>Create
                             </v-btn>
                             <v-spacer></v-spacer>
                             <v-btn color="orange" @click="changeState" text>Cancel</v-btn>
@@ -136,18 +141,34 @@ export default {
             }
         },
         async registerUser() {
+            this.waiting = true
             //TODO first make validation here! -all required, email is email, confirmed password is same and so on
-            const user = await AuthService.register(this.form)
+            try{
+            const user = await AuthService.register(this.form)}
+            catch (e) {
+                this.$swal(e.message)
+            }
             this.waiting = false //damit das Loading aufhört
             //alert("Hello " +user.name)
         },
         async loginUser() {
-            try {
-                const user = await AuthService.login(this.form)
-            } catch (e) {
-                this.$swal(e.message)
+            this.waiting = true // NOT WORKING
+            //form shouldnt be empty
+            if(this.form.name==="" || this.form.password===""){
+
+                this.$swal("I need a name and a password!")
+                this.waiting = false // NOT WORKING
+            }else{
+                //the actual request
+                try {
+                    const user = await AuthService.login(this.form)
+                } catch (e) {
+                    this.$swal(e.message)
+                }
+                this.waiting = false
             }
-            this.waiting = false
+
+
         }
 
     }
